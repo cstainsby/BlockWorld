@@ -1,0 +1,12 @@
+In this project the goal was to implement a basic version of blocks world.
+This version of blocks world set the number of avaible spaces for the 
+blocks as well as the total number of blocks between three and ten. In my
+version, all moveable blocks(blocks on top of their respective index), 
+will find all possible locations they could move to. One of those blocks 
+moves will be selected as a "random movement" and will be moved 
+accordingly. Every run, the game will check whether all blocks have been 
+assembled in order on one spot, if they are the game will end.
+
+Due to the way the random moves work, I wasn't able to get a final run. 
+The game could run on forever because there is no bias towards making a 
+"correct move".

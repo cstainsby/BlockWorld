@@ -1,5 +1,6 @@
 from Block import Block
 
+# this class holds a block as well as a possible location for it to move
 class PossibleMove:
 	# constructor
 	def __init__(self, block, moveIndex):

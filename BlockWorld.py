@@ -33,7 +33,7 @@ class BlockWorld:
 		"""
 		params: None
 		returns: None
-		what it does: prints current state of blockWorldList
+		what it does: makes a random moveable block move
 		"""
 		possibleMoves = [] 
 
@@ -50,9 +50,9 @@ class BlockWorld:
 					possibleMoves.append(PossibleMove(currBlock, i-1))
 
 		# print all possible moves
-		#print("Possible Moves: ")
-		#for move in possibleMoves:
-		#	print(move)
+		print("Possible Moves: ")
+		for move in possibleMoves:
+			print(move)
 
 		# select a random move to make and then make it
 		randMove = random.randint(0, len(possibleMoves) - 1)
@@ -72,7 +72,11 @@ class BlockWorld:
 		blockGettingMoved.setCurrIndex(selectedMove.getMoveIndex())
 
 	def pollWinState(self):
-
+		"""
+		params: None
+		returns: None
+		what it does: polls the status of the game to see if it has been won
+		"""
 		for i in range(0, self.numSpaces):
 			inOrderCount = 0
 
@@ -86,7 +90,6 @@ class BlockWorld:
 		return False
 
 
-
 	def printListState(self):
 		"""
 		params: None
@@ -97,7 +100,8 @@ class BlockWorld:
 			builtStrRow = str(i) + "| "
 			for j in range(len(self.blockWorldList[i])):
 				builtStrRow += "[" + str(self.blockWorldList[i][j]) + "] "
-			#print(builtStrRow)
+			print(builtStrRow)
+
 
 	def run(self):
 		"""
@@ -108,10 +112,10 @@ class BlockWorld:
 		totalRuns = 0
 
 		while(self.pollWinState() == False):
-			#print("-----------------------------------------------------------")
-			#self.printListState()
+			print("-----------------------------------------------------------")
+			self.printListState()
 			self.makeMove()
-			#print("\n")
+			print("\n")
 			totalRuns += 1
 
 		return totalRuns

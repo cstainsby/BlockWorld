@@ -1,4 +1,5 @@
 
+# this class holds all relevant info for each block
 class Block:
 	# constructor
 	def __init__(self, blockNum, currIndex):
