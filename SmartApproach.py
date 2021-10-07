@@ -11,8 +11,10 @@ class SmartApproach:
 
 
 	def generateBoardState(self, currState, move):
-		newState = copy.deepcopy(currState)
-		blockToBeMoved = move.getBlock
+		# prevent overrite issues
+		newState = currState
+
+		blockToBeMoved = move.getBlock()
 		whereTo = move.getMoveIndex
 		
 		# because we know the block being moved is at the end of the list 
@@ -21,9 +23,11 @@ class SmartApproach:
 		newState[blockToBeMoved.getCurrIndex()].pop()
 
 		# append moved block to its new index
-		newState[selectedMove.getMoveIndex()].append(blockGettingMoved)
+		newState[move.getMoveIndex()].append(blockToBeMoved)
 		# set the block's index 
-		blockGettingMoved.setCurrIndex(selectedMove.getMoveIndex())
+		blockToBeMoved.setCurrIndex(move.getMoveIndex())
+
+		return newState
 
 
 
@@ -72,26 +76,29 @@ class SmartApproach:
 		#O(N) operation to condense the memory impact of the program
 		for i in range(self.numSpaces):
 			statusString += "_"
-			for j in range(len(boardStatus[i])):
-				statusString += str(boardStatus[i][j]) + ","
-
+			for j in range(0, len(boardStatus[i])):
+				# convert block object into toString form
+				statusString += str(boardStatus[i][j]) + ','
+		print("generated Code: " + statusString)
 		return statusString
 
 
 	def getStateFromCode(self, statusCode):
 		decodedStatus = [] 		# where the new status will be stored
 		nextNum = ""			# used to read in numbers of varying size
+		insertIndex = 0			# every _ increase index
 		# _ for next space
 		# , for next 
 		#O(N) operation to condense the memory impact of the program
 		for i in range(0, len(statusCode)):
+			decodedStatus.append(list())
 			# either a '_', ',' or an integer
 			if(statusCode[i] == '_'):
-				decodedStatus.append(list())
+				insertIndex += 1
 			elif(statusCode[i] == ','):
-				# add the currently compiled number and flush it out of nextNum
-				decodedStatus[len(decodedStatus) - 1].append(int(nextNum))
-				nextNum.clear()
+				# add the currently compiled number into block, append it to list, then flush it out of nextNum
+				decodedStatus[insertIndex].append(Block(int(nextNum), insertIndex))
+				nextNum = ""
 			else:
 				nextNum += statusCode[i]
 

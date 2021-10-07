@@ -21,9 +21,9 @@ class BFSapproach(SmartApproach):
 
 		self.BFS_Recurse()
 
-		victoryPath.reverse()
+		self.victoryPath.reverse()
 
-		print(victoryPath)
+		print(self.victoryPath)
 
 
 	def BFS_Recurse(self):
@@ -34,27 +34,27 @@ class BFSapproach(SmartApproach):
 		currStateCode = self.possibleStates.pop(0)
 		currState = self.getStateFromCode(currStateCode)
 
-		if(pollWinState(currState) == True):
+		if(self.pollWinState(currState) == True):
 			self.gameEndFound = True
 			return 
 
 		# 1) find all possible moves
-		possibleMoves = buildPossibleMoves(currState)
+		possibleMoves = self.buildPossibleMoves(currState)
 		for possibleMove in possibleMoves:
 			# check possible states for being valid 
-			newState = generateBoardState(currState, possibleMove)
+			newState = self.generateBoardState(currState, possibleMove)
 
-			newStateCode = getCodeFromState(newState)
+			newStateCode = self.getCodeFromState(newState)
 
 			# validate code 
-			if not (self.exploredStates.contains(newStateCode)):
+			if(self.exploredStates.count(newStateCode) > 0):
 				self.exploredStates.append(newStateCode)
 				self.possibleStates.append(newStateCode)
 
 		self.BFS_Recurse()
 
-		if(gameEndFound == True):
-			victoryPath.append(possibleStates)
+		if(self.gameEndFound == True):
+			self.victoryPath.append(possibleStates)
 
 
 
