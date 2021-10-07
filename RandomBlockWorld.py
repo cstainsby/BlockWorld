@@ -3,7 +3,7 @@ import random
 from Block import Block 
 from PossibleMove import PossibleMove 
 
-class BlockWorld:
+class RandomBlockWorld:
 	blockWorldList = []
 
 	def __init__(self):
@@ -119,6 +119,4 @@ class BlockWorld:
 			totalRuns += 1
 
 		return totalRuns
-
-
 

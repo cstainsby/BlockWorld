@@ -1,14 +1,17 @@
-from BlockWorld import BlockWorld
+from RandomBlockWorld import RandomBlockWorld
+from SmartBlockWorld import SmartBlockWorld
 
 def main():
     """
     Driver for Block World
     """
-    blockWorld = BlockWorld()
+    #randBlockWorld = RandomBlockWorld()
 
-    totalRuns = blockWorld.run()
+    #totalRuns = randBlockWorld.run()
 
-    print("Block World finished in " + str(totalRuns) + " totalRuns")
+    #print("Block World finished in " + str(totalRuns) + " totalRuns")
+
+    smartBlockWorld = SmartBlockWorld()
     
 
 if __name__ == '__main__':
