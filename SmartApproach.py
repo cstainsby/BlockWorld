@@ -12,7 +12,7 @@ class SmartApproach:
 
 	def generateBoardState(self, currState, move):
 		# prevent overrite issues
-		newState = currState
+		newState = copy.deepcopy(currState)
 
 		blockToBeMoved = move.getBlock()
 		whereTo = move.getMoveIndex
@@ -20,12 +20,12 @@ class SmartApproach:
 		# because we know the block being moved is at the end of the list 
 		# find list size and pop end
 		indexSizeAtBlock = len(newState[blockToBeMoved.getCurrIndex()])
-		newState[blockToBeMoved.getCurrIndex()].pop()
+		blockInTransit = newState[blockToBeMoved.getCurrIndex()].pop()
 
 		# append moved block to its new index
-		newState[move.getMoveIndex()].append(blockToBeMoved)
+		newState[move.getMoveIndex()].append(blockInTransit)
 		# set the block's index 
-		blockToBeMoved.setCurrIndex(move.getMoveIndex())
+		blockInTransit.setCurrIndex(move.getMoveIndex())
 
 		return newState
 
@@ -60,8 +60,8 @@ class SmartApproach:
 			inOrderCount = 0
 
 			for block in currState[i]:
-				if(block.getBlockNum() == inOrderCount):
-					inOrderCount += 1
+				if(block.getBlockNum() == inOrderCount + 1):
+					inOrderCount = inOrderCount + 1
 
 			if(inOrderCount == self.numBlocks):
 				return True
@@ -76,30 +76,22 @@ class SmartApproach:
 		#O(N) operation to condense the memory impact of the program
 		for i in range(self.numSpaces):
 			statusString += "_"
-			for j in range(0, len(boardStatus[i])):
+			for block in boardStatus[i]:
 				# convert block object into toString form
-				statusString += str(boardStatus[i][j]) + ','
-		print("generated Code: " + statusString)
+				statusString += str(block) + ','
+
 		return statusString
 
 
-	def getStateFromCode(self, statusCode):
-		decodedStatus = [] 		# where the new status will be stored
-		nextNum = ""			# used to read in numbers of varying size
-		insertIndex = 0			# every _ increase index
-		# _ for next space
-		# , for next 
-		#O(N) operation to condense the memory impact of the program
-		for i in range(0, len(statusCode)):
-			decodedStatus.append(list())
-			# either a '_', ',' or an integer
-			if(statusCode[i] == '_'):
-				insertIndex += 1
-			elif(statusCode[i] == ','):
-				# add the currently compiled number into block, append it to list, then flush it out of nextNum
-				decodedStatus[insertIndex].append(Block(int(nextNum), insertIndex))
-				nextNum = ""
-			else:
-				nextNum += statusCode[i]
-
-		return decodedStatus
+	def printListState(self, currState):
+		"""
+		params: None
+		returns: None
+		what it does: prints current state of blockWorldList
+		"""
+		for i in range(self.numSpaces):
+			builtStrRow = str(i) + "| "
+			for block in currState[i]:
+				builtStrRow += "[" + str(block) + "] "
+			print(builtStrRow)
+		print("")

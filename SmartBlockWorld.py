@@ -3,6 +3,7 @@ from TreeDataStruct import Tree, Node
 from Block import Block 
 from PossibleMove import PossibleMove 
 from BFSapproach import BFSapproach as bfs
+from DFSapproach import DFSapproach as dfs
 
 import copy
 import random 
@@ -21,6 +22,8 @@ class SmartBlockWorld():
 		returns: None
 		what it does: sets up the tree for the smart blockworld game
 		"""
+		self.numSpaces = 4
+		self.numBlocks = 4
 
 		self.numSpaces = random.randint(3, 10)
 		self.numBlocks = random.randint(3, 10)
@@ -38,6 +41,11 @@ class SmartBlockWorld():
 			blockPlacePos = random.randint(0, self.numSpaces-1)
 			self.blockWorldList[blockPlacePos].append(Block(i, blockPlacePos))
 
-		approach = bfs(self.numSpaces, self.numBlocks)
 
-		approach.BFS(self.blockWorldList)
+		# ------------run bfs approach-------------
+		#approach = bfs(self.numSpaces, self.numBlocks)
+		#approach.BFS(self.blockWorldList)
+
+		# ------------run dfs approach-------------
+		approach = dfs(self.numSpaces, self.numBlocks)
+		approach.DFS(self.blockWorldList)

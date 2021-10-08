@@ -8,7 +8,7 @@ class Block:
 
 	# toString method
 	def __str__(self):
-		return str(self.blockNum) 
+		return str(self.blockNum)
 
 	# get the block's number
 	def getBlockNum(self):

@@ -4,14 +4,14 @@ from SmartApproach import SmartApproach
 
 import copy
 
-class BFSapproach(SmartApproach):
+class DFSapproach(SmartApproach):
 	def __init__(self, numSpaces, numBlocks):
 		super().__init__(numSpaces, numBlocks)
 		self.exploredStates = []    # codes of explored states that should be avoided
-		self.possibleStates = []	# the queue that is used to coordinate the next movement of the BFS search
+		self.possibleStates = []	# the stack that is used to coordinate the next movement of the DFS search
 
 
-	def BFS(self, initialState):
+	def DFS(self, initialState):
 		self.possibleStates.append(initialState)
 		self.exploredStates.append(self.getCodeFromState(initialState))
 
@@ -20,7 +20,8 @@ class BFSapproach(SmartApproach):
 
 		while(len(self.possibleStates) > 0):
 
-			currState = self.possibleStates.pop(0)
+			# pop from the back where items are being appended for dfs (FIFO stack)
+			currState = self.possibleStates.pop(len(self.possibleStates) - 1)
 
 			if(self.pollWinState(currState) == True):
 				self.gameEndFound = True
@@ -47,7 +48,5 @@ class BFSapproach(SmartApproach):
 			self.printListState(currState)
 
 	
-
-
 
 
